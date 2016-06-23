@@ -27,6 +27,7 @@ if ( ! class_exists( 'TM_Youtube_Subscribe' ) ) {
 		 * @var   object
 		 */
 		private static $instance = null;
+
 		/**
 		 * A reference to an instance of cherry framework core class.
 		 *
@@ -34,16 +35,23 @@ if ( ! class_exists( 'TM_Youtube_Subscribe' ) ) {
 		 * @var   object
 		 */
 		private $core = null;
+
 		/**
 		 * Sets up needed actions/filters for the plugin to initialize.
 		 *
 		 * @since 1.0.0
 		 */
 		public function __construct() {
+			// Load the installer core.
+			add_action( 'after_setup_theme', require( trailingslashit( __DIR__ ) . 'cherry-framework/setup.php' ), 0 );
 
-			add_action( 'after_setup_theme', array( $this, 'get_core' ), 10 );
+			// Init the core.
+			add_action( 'after_setup_theme', array( $this, 'get_core' ), 1 );
+			add_action( 'after_setup_theme', array( 'Cherry_Core', 'load_all_modules' ), 2 );
+
 			// Internationalize the text strings used.
 			add_action( 'plugins_loaded', array( $this, 'lang' ), 5 );
+
 			// Load the functions files.
 			add_action( 'widgets_init', array( $this, 'subscribe_widget' ), 4 );
 		}
@@ -64,42 +72,42 @@ if ( ! class_exists( 'TM_Youtube_Subscribe' ) ) {
 		 * @since  1.1.0
 		 */
 		public function get_core() {
-			/**
-			 * Fires before loads the core theme functions.
-			 *
-			 * @since  1.1.0
-			 */
-			do_action( 'cherry_core_before' );
+			global $chery_core_version;
+
 			if ( null !== $this->core ) {
 				return $this->core;
 			}
 
-			if ( ! class_exists( 'Cherry_Core' ) ) {
-				require_once( plugin_dir_path( __FILE__ ) . 'cherry-framework/cherry-core.php' );
+			if ( 0 < sizeof( $chery_core_version ) ) {
+				$core_paths = array_values( $chery_core_version );
+
+				require_once( $core_paths[0] );
+			} else {
+				die( 'Class Cherry_Core not found' );
 			}
+
 			$this->core = new Cherry_Core( array(
-				'base_dir'	=> plugin_dir_path( __FILE__ ) . 'cherry-framework',
-				'base_url'	=> plugin_dir_url( __FILE__ ) . 'cherry-framework',
-				'modules'	=> array(
-					'cherry-js-core'	=> array(
-						'priority'	=> 999,
-						'autoload'	=> true,
+				'base_dir' => plugin_dir_path( __FILE__ ) . 'cherry-framework',
+				'base_url' => plugin_dir_url( __FILE__ ) . 'cherry-framework',
+				'modules'  => array(
+					'cherry-js-core' => array(
+						'autoload' => true,
 					),
 					'cherry-ui-elements' => array(
-						'priority'	=> 999,
-						'autoload'	=> true,
-						'args'		=> array(
+						'autoload' => true,
+						'args'     => array(
 							'ui_elements' => array(
 								'text',
 							),
 						),
 					),
 					'cherry-widget-factory' => array(
-						'priority'	=> 999,
-						'autoload'	=> true,
+						'autoload' => true,
 					),
 				),
 			));
+
+			return $this->core;
 		}
 		/**
 		 * Include and add all foles.
