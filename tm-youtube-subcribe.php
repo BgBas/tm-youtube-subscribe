@@ -43,7 +43,7 @@ if ( ! class_exists( 'TM_Youtube_Subscribe' ) ) {
 		 */
 		public function __construct() {
 			// Load the installer core.
-			add_action( 'after_setup_theme', require( trailingslashit( __DIR__ ) . 'cherry-framework/setup.php' ), 0 );
+			add_action( 'after_setup_theme', require( trailingslashit( dirname( __FILE__ ) ) . 'cherry-framework/setup.php' ), 0 );
 
 			// Init the core.
 			add_action( 'after_setup_theme', array( $this, 'get_core' ), 1 );
