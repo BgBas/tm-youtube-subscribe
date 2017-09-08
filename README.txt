@@ -3,8 +3,8 @@
 Contributors: TemplateMonster 2002
 Tags: youtube, widgets, embed videos, youtube channel, youtube, youtube for wordpress
 Requires at least: 4.4
-Tested up to: 4.4.2
-Stable tag: 1.0
+Tested up to: 4.8.1
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,10 @@ Use this professionally designed widget to add YouTube subscribe box to your web
 * Text to display when there is more than one video - Text that will come up when if more than one video is available on the channel
 
 == Changelog ==
+
+= 1.0.1 =
+
+* Fixed bugs
 
 = 1.0.0 =
 
