@@ -1,12 +1,15 @@
 <?php
 /**
  * Plugin Name: TM YouTube Subscribe
- * Plugin URI:
+ * Plugin URI: https://wordpress.org/plugins/tm-youtube-subscribe/
  * Description: This simple plugin allows to display YouTube subscribe widget on the website. Flexible customization options allow you to install it in no time flat.
- * Version: 1.0
- * Author: TemplateMonster
- * Author URI: http://www.templatemonster.com/
+ * Version: 1.0.1
+ * Author: Jetimpex
+ * Author URI:  https://jetimpex.com/wordpress/
  * Text Domain: youtube-subscribe
+ * License:     GPL-3.0+
+ * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
+ * Domain Path: /languages
  */
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
